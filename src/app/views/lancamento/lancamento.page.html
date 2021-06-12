@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Lançamentos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="acaoSelect()">
+        <ion-icon slot="icon-only" [name]="acao === 'view' ? 'add' : 'close'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Lançamentos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <div *ngIf="acao === 'view'">
+    <ion-list>
+      <ion-item-sliding *ngFor="let i of api.MovimentosList">
+        <ion-item lines="full">
+          <ion-avatar><img [src]="i.CodReceita ? 'assets/icon/receita.png':'assets/icon/despesa.png'"></ion-avatar>
+          <ion-label style="margin-left: 10px;"> <p><b>{{i.DescMovimento}}</b> </p> <p>{{ getDescricao(i)}}</p></ion-label>
+          <ion-note slot="end">R$ {{i.Valor}}</ion-note>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="warning" (click)="edit(i)">
+            <ion-icon name="pencil-outline"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="delete(i.CodMovimento)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+
+  <div *ngIf="acao === 'insert'">
+
+    <ion-item lines="full">
+      <ion-label position="stacked" color="primary">Descrição:</ion-label>
+      <ion-input [(ngModel)]="mov.DescMovimento"></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="stacked" color="primary">Valor:</ion-label>
+      <ion-input type="tel" [(ngModel)]="mov.Valor"></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="stacked" color="primary">Tipo:</ion-label>
+      <ion-select [(ngModel)]="categoria" okText="Selecionar" cancelText="Cancelar">
+        <ion-select-option value="despesa">Despesa</ion-select-option>
+        <ion-select-option value="receita">Receita</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="full" *ngIf="categoria === 'despesa'">
+      <ion-label position="stacked" color="primary">Despesa:</ion-label>
+      <ion-select [(ngModel)]="mov.CodDespesa" placeholder="Selecione ..." okText="Selecionar" cancelText="Cancelar">
+        <ion-select-option [value]="c.CodDespesa" *ngFor="let c of api.CatDespesas">{{c.DescDespesa}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="full" *ngIf="categoria === 'receita'">
+      <ion-label position="stacked" color="primary">Receita:</ion-label>
+      <ion-select [(ngModel)]="mov.CodReceita" placeholder="Selecione ..." okText="Selecionar" cancelText="Cancelar">
+        <ion-select-option [value]="c.CodReceita" *ngFor="let c of api.CatReceitas">{{c.DescReceita}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="btn_save">
+      <ion-button expand="block" fill="outline" (click)="add()" [disabled]="mov.Valor === '' || mov.DescMovimento === ''">
+        <ion-icon slot="start" name="save-outline"></ion-icon> Salvar Movimento
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

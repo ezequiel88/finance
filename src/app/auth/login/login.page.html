@@ -1,0 +1,48 @@
+<ion-content class="ion-padding">
+
+  <div class="login">
+
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <img class="logo" src="/assets/images/logo.png" alt="logo">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-title>Login</ion-title>
+        </ion-col>
+      </ion-row>
+      <br>
+      <ion-row>
+        <ion-col size-lg="4" offset-lg="4" size-md="6" offset-md="3">
+          <form [formGroup]="loginForm" novalidate (submit)="login(loginForm.value)">
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-label position="stacked">Email:</ion-label>
+              <ion-input formControlName="email">
+                <ion-icon class="icon-input" slot="start" name="mail"></ion-icon>
+              </ion-input>
+            </ion-item>
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-label position="stacked">Senha:</ion-label>
+              <ion-input type="password" formControlName="senha">
+                <ion-icon class="icon-input" slot="start" name="lock-closed"></ion-icon>
+              </ion-input>
+            </ion-item>
+            <br>
+            <ion-button type="submit" expand="full" color="primary" [disabled]="loginForm.invalid">
+              Entrar
+            </ion-button>
+            <br>
+            <ion-button [routerLink]="['/auth/re-password']" size="small" expand="full" fill="clear">
+              Esqueci a Senha
+            </ion-button>
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+
+
+</ion-content>

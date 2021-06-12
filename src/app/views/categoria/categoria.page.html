@@ -1,0 +1,98 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Categorias</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="acaoSelect()">
+        <ion-icon slot="icon-only" [name]="acao === 'view' ? 'add' : 'close'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Categorias</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="acao === 'view'">
+
+
+    <ion-segment [(ngModel)]="tipo" (ionChange)="changeType($event)">
+      <ion-segment-button value="despesa">
+        <ion-label>Despesa</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="receita">
+        <ion-label>Receita</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <div *ngIf="tipo === 'despesa'">
+      <ion-list>
+        <ion-item-sliding *ngFor="let i of api.CatDespesas">
+          <ion-item lines="full">
+            <ion-note slot="start">#{{i.CodDespesa < 10 ? '0' + i.CodDespesa.toString() : i.CodDespesa}}</ion-note>
+            <ion-label style="margin-left: 10px;">{{i.DescDespesa}}</ion-label>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="warning" (click)="edit(i)">
+              <ion-icon name="pencil-outline"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="danger" (click)="deleteDesepesa(i.CodDespesa)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+
+    <div *ngIf="tipo === 'receita'">
+      <ion-list>
+        <ion-item-sliding *ngFor="let i of api.CatReceitas">
+          <ion-item lines="full">
+            <ion-note slot="start">#{{i.CodReceita < 10 ? '0' + i.CodReceita.toString() : i.CodReceita}}</ion-note>
+            <ion-label style="margin-left: 10px;">{{i.DescReceita}}</ion-label>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="warning" (click)="edit(i)">
+              <ion-icon name="pencil-outline"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="danger" (click)="deleteReceita(i.CodReceita)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+  </div>
+
+
+  <div *ngIf="acao === 'insert'">
+
+
+    <ion-item lines="full">
+      <ion-label position="stacked" color="primary">Tipo:</ion-label>
+      <ion-select [(ngModel)]="tipoCategoria" okText="Selecionar" cancelText="Cancelar">
+        <ion-select-option value="despesa">Despesa</ion-select-option>
+        <ion-select-option value="receita">Receita</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="stacked" color="primary">Descrição:</ion-label>
+      <ion-input [(ngModel)]="descricao"></ion-input>
+    </ion-item>
+
+    <div class="btn_save">
+      <ion-button expand="block" fill="outline" (click)="new()" [disabled]="!descricao || descricao ==''">
+        <ion-icon slot="start" name="save-outline"></ion-icon> Salvar Categoria
+      </ion-button>
+
+    </div>
+  </div>
+
+</ion-content>

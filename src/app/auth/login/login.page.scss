@@ -1,0 +1,34 @@
+.login {
+    margin-top: 40px;
+}
+
+.logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+ion-title {
+    color: #333;
+}
+
+ion-label {
+    color: #222 !important;
+}
+.icon-input {
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #1e4364;
+}
+ion-item {
+    --inner-padding-end: 0;
+    --background: transparent;
+}
+
+ion-input {
+    margin-bottom: 5px;
+    --background: #ddd;
+}
+ion-button {
+    margin: 0;
+}

@@ -1,0 +1,25 @@
+.img_dashboard {
+    padding: 5px;
+    border-radius: 0 6px 6px 0;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+ion-card-title {
+    font-size: 16px;
+}
+ion-card {
+    padding: 5px;
+    margin-bottom: 12px;
+}
+ion-card-content {
+    p {   
+        font-size: 20px;
+        font-weight: 900;
+    }
+}
+
+
