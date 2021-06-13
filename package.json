@@ -23,6 +23,7 @@
     "@ionic/angular": "^5.5.2",
     "chart.js": "^3.3.2",
     "cordova-android": "9.1.0",
+    "cordova-ios": "6.2.0",
     "firebase": "^8.6.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
